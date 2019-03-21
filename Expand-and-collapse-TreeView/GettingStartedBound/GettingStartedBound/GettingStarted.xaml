@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GettingStartedBound.GettingStatred"
+             xmlns:local="clr-namespace:GettingStartedBound"
+             xmlns:treeview="clr-namespace:Syncfusion.XForms.TreeView;assembly=Syncfusion.SfTreeView.XForms">
+    <ContentPage.BindingContext>
+        <local:FileManagerViewModel x:Name="viewModel"></local:FileManagerViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ExpanderIconVisibilityConverter x:Key="ExpanderIconVisibilityConverter"/>
+            <local:ExpanderIconConverter x:Key="ExpanderIconConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <treeview:SfTreeView x:Name="treeView"
+                             Indentation="40"
+                               ItemHeight="40"
+                               ExpanderWidth="0"
+                             AutoExpandMode="None"
+                             ItemTemplateContextType="Node"
+                             ChildPropertyName="SubFiles"
+                             ItemsSource="{Binding ImageNodeInfo}">
+            <treeview:SfTreeView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid x:Name="grid" Padding="5,5,5,5" RowSpacing="0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Image Source="{Binding Content.ImageIcon}"
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"
+                                           HeightRequest="35" 
+                                           WidthRequest="35"/>
+                                </Grid>
+                                <Grid Grid.Column="1"
+                                      RowSpacing="1"
+                                      Padding="1,0,0,0"
+                                      VerticalOptions="Center">
+                                    <Label LineBreakMode="NoWrap"  TextColor="Black" HeightRequest="50"
+                                           Text="{Binding Content.ItemName}"
+                                           VerticalTextAlignment="Center">
+                                        <Label.FontSize>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On  Platform="Android,iOS">
+                                                    <OnIdiom x:TypeArguments="x:Double" Phone="14" Tablet="16" />
+                                                </On>
+                                                <On  Platform="UWP">
+                                                    <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="18" Desktop="18" />
+                                                </On>
+                                            </OnPlatform>
+                                        </Label.FontSize>
+                                    </Label>
+                                </Grid>
+                                <Image Grid.Column="2" Source="{Binding IsExpanded,Converter={StaticResource ExpanderIconConverter}}"
+                                       IsVisible="{Binding HasChildNodes,Converter={StaticResource ExpanderIconVisibilityConverter}}"
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"
+                                           HeightRequest="35" 
+                                           WidthRequest="35">
+
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>                
+            </treeview:SfTreeView.ItemTemplate>
+            <!--<treeview:SfTreeView.ExpanderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Image Source="{Binding IsExpanded,Converter={StaticResource ExpanderIconConverter}}"
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"
+                                           HeightRequest="35" 
+                                           WidthRequest="35"/>
+                                
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </treeview:SfTreeView.ExpanderTemplate>-->
+        </treeview:SfTreeView>
+
+    </ContentPage.Content>
+</ContentPage>
