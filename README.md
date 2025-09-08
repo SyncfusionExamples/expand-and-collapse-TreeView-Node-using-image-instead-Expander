@@ -37,18 +37,6 @@ This example demonstrates how to customize node expansion and collapse in the Sy
                        ...
             </DataTemplate>                
         </treeview:SfTreeView.ItemTemplate>
-        <!--<treeview:SfTreeView.ExpanderTemplate>
-            <DataTemplate>
-               ...
-                        <Image Source="{Binding IsExpanded,Converter={StaticResource ExpanderIconConverter}}"
-                                       VerticalOptions="Center" 
-                                       HorizontalOptions="Center"
-                                       HeightRequest="35" 
-                                       WidthRequest="35"/>
-                            
-                ...
-            </DataTemplate>
-        </treeview:SfTreeView.ExpanderTemplate>-->
     </treeview:SfTreeView>
 </ContentPage.Content>
 ```
